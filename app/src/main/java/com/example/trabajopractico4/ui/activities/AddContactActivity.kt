@@ -1,14 +1,20 @@
 package com.example.trabajopractico4.ui.activities
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajopractico4.R
 import com.example.trabajopractico4.api.ApiService
 import com.example.trabajopractico4.models.Contact
+import com.example.trabajopractico4.models.Email
+import com.example.trabajopractico4.models.Phone
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +30,10 @@ class AddContactActivity : AppCompatActivity() {
     private lateinit var editTextCity: EditText
     private lateinit var editTextState: EditText
     private lateinit var buttonSaveContact: Button
+
+    private val phoneList = mutableListOf<Phone>()
+    private val emailList = mutableListOf<Email>()
+
 
     private val apiService: ApiService by lazy {
         // Create Retrofit instance here
@@ -60,22 +70,25 @@ class AddContactActivity : AppCompatActivity() {
         val city = editTextCity.text.toString().trim()
         val state = editTextState.text.toString().trim()
 
+        phoneList.clear()
+        emailList.clear()
+
         if (name.isEmpty() || lastName.isEmpty()) {
             Toast.makeText(this, "Please enter a name and last name", Toast.LENGTH_SHORT).show()
             return
         }
 
         val contact = Contact(
-            id = 0,  // ID will be assigned by the server
+            id = 0,
             name = name,
             last_name = lastName,
             company = company,
             address = address,
             city = city,
             state = state,
-            profile_picture = "",  // Handle profile picture if needed
-            phones = listOf(),     // Handle phones input
-            emails = listOf()      // Handle emails input
+            profile_picture = "",
+            phones = phoneList,
+            emails = emailList
         )
 
         apiService.addContact(contact).enqueue(object : Callback<Contact> {
@@ -94,5 +107,4 @@ class AddContactActivity : AppCompatActivity() {
             }
         })
     }
-
 }

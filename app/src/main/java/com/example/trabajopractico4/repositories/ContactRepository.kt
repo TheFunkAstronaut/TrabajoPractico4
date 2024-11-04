@@ -9,7 +9,4 @@ class ContactRepository {
 
     fun getContacts(): Call<List<Contact>> = apiService.getContacts()
 
-    fun addContact(contact: Contact): Call<Contact> = apiService.addContact(contact)
-
-    fun updateContact(id: Int, contact: Contact): Call<Contact> = apiService.updateContact(id, contact)
 }

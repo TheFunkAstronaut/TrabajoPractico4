@@ -17,7 +17,6 @@ class ContactAdapter : ListAdapter<Contact, ContactAdapter.ContactViewHolder>(Co
         return ContactViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val contact = getItem(position)
         holder.bind(contact)

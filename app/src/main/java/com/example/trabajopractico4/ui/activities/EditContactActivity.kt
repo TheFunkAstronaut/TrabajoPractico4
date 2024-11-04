@@ -1,8 +1,11 @@
 package com.example.trabajopractico4.ui.activities
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.trabajopractico4.R
 import com.example.trabajopractico4.api.ApiService
 import com.example.trabajopractico4.models.Contact
+import com.example.trabajopractico4.models.Email
+import com.example.trabajopractico4.models.Phone
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +32,10 @@ class EditContactActivity : AppCompatActivity() {
     private lateinit var editTextState: EditText
     private lateinit var buttonUpdateContact: Button
     private lateinit var buttonDeleteContact: Button
+    private val phoneLabels = listOf("Home", "Work", "University", "Custom")
+    private val emailLabels = listOf("Personal", "Work", "University", "Custom")
+    private val phoneList = mutableListOf<Phone>()
+    private val emailList = mutableListOf<Email>()
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
